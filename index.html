@@ -19,7 +19,6 @@
 
 
 
-
         			//Width and height
         			var w = 500;
         			var h = 300;
@@ -44,12 +43,18 @@
         								 .domain([0, d3.max(dataset, function(d) { return d[1]; })])
         								 .range([2, 5]);
 
+        			//Define X axis
+        			var xAxis = d3.svg.axis()
+        							  .scale(xScale)
+        							  .orient("bottom");
+
         			//Create SVG element
         			var svg = d3.select("body")
         						.append("svg")
         						.attr("width", w)
         						.attr("height", h);
 
+        			//Create circles
         			svg.selectAll("circle")
         			   .data(dataset)
         			   .enter()
@@ -64,6 +69,7 @@
         			   		return rScale(d[1]);
         			   });
 
+        			//Create labels
         			svg.selectAll("text")
         			   .data(dataset)
         			   .enter()
@@ -81,10 +87,14 @@
         			   .attr("font-size", "11px")
         			   .attr("fill", "red");
 
+
+        			//Create X axis
+        			svg.append("g")
+        				.attr("class", "axis")
+        				.attr("transform", "translate(0," + (h - padding) + ")")
+        				.call(xAxis);
+
         		
-
-
-
         </script>
     </body>
 </html>
